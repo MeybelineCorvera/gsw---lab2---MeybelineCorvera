@@ -1,0 +1,28 @@
+Laboratorio 2 – EJERCICIO PRÁCTICO INDIVIDUAL
+Unidad 2 – Servidor Web de Libre Distribución
+Caso: “Dulce Hogar” – Repostería Artesanal
+
+
+FASE 3 Reverse Proxy a Express
+
+
+1. ¿Qué hace exactamente ProxyPass /api http://IP_HOST:9090/api?
+
+Le dice a Apache que toda petición que empiece con /api no la busque como archivo en el disco la reenvíe a Express que corre
+en la IP del host Windows y el puerto 9090 y Apache recibe la respuesta de Express y se la devuelve al cliente por eso el visitante solo
+conoce una dirección (dulcehogar.local:8085) y no sabe que atrás hay otro servidor
+
+
+
+2. ¿Por qué localhost desde WSL2 no llega al Express en Windows?
+
+Porque WSL2 corre en una máquina virtual con su propia red y pues dentro de Ubuntu localhost es la propia máquina virtual de Linux  no
+Windows y Express está corriendo en Windows por eso hay que usar la IP del host Windows y abrir el puerto 9090 en el firewall de Windows.
+
+
+
+3. Reto: ¿qué pasaría si escribes ProxyPass /api http://IP_HOST:9090 (sin /api final)? Pruébalo.
+
+Lo probé y la respuesta fue "Cannot GET /saludo" y "Cannot GET /pedido" que es un error de Express sin el /api final Apache reemplaza el
+prefijo /api por la raíz del destino por lo que a Express le llegó /saludo en vez de /api/saludo como esa ruta no existe en el index.js por eso
+respondió con error 404 luego devolví la configuración original con /api al final y el JSON volvió a funcionar
