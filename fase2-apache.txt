@@ -1,0 +1,34 @@
+Laboratorio 2 – EJERCICIO PRÁCTICO INDIVIDUAL
+Unidad 2 – Servidor Web de Libre Distribución
+Caso: “Dulce Hogar” – Repostería Artesanal
+
+
+FASE 2 Apache + Virtual Host
+
+
+1. ¿Qué diferencia hay entre sites-available y sites-enabled?
+
+que sites-available se guardan los archivos de configuración de todos los sitios que existen estén activos o no. En sites-enabled solo
+hay enlaces simbólicos a los sitios que están activados.
+
+
+
+2. ¿Por qué se ejecuta configtest antes de reload?
+
+configtest revisa la sintaxis de la configuración sin tocar el servicio si hay un error y se hace reload directo Apache podría
+fallar y dejar caídos sitios que ya funcionaban coon Syntax OK se sabe que el cambio es seguro de aplicar.
+
+
+
+3. Reto: el HTML debe contener tu nombre y una imagen local. Captura el navegador.
+
+El index.html tiene el nombre del administrador mi persona Meybeline Corvera y una imagen local guardada en img/cake.jpg
+desde /var/www/dulcehogar.local. La captura está en capturas/fase2-apache-sitio.png.
+
+
+
+Errores que tuve
+- El navegador no encontraba dulcehogar.local. Solución: agregar el dominio también al archivo hosts de Windows y usar el puerto :8085.
+
+
+Syntax OK
