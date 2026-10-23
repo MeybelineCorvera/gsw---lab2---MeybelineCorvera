@@ -1,0 +1,36 @@
+Laboratorio 2 – EJERCICIO PRÁCTICO INDIVIDUAL
+Unidad 2 – Servidor Web de Libre Distribución
+Caso: “Dulce Hogar” – Repostería Artesanal
+
+
+FASE 4 HTTPS con mkcert + permisos + logs
+
+
+1. ¿Por qué certbot no funciona para dulcehogar.local?
+
+Certbot usa Let's Encrypt y pues debe comprobar que el dominio es tuyo mediante internet (por HTTP en el puerto 80 o por DNS). El dominio
+dulcehogar.local es local no existe en el DNS público y .local no es un dominio que se pueda validar, por eso Let's Encrypt no puede
+emitir un certificado para él.
+
+
+
+2. ¿Qué diferencia hay entre certificado autofirmado y uno firmado por mkcert?
+
+Uno autofirmado lo firma él mismopor lo q ningún navegador confía en él y siempre muestra advertencia y con mkcert se crea primero una
+autoridad certificadora local (CA) que se instala en el almacén de confianza del sistema el certificado del sitio lo firma esa CA.
+Como el equipo confía en la CA, el navegador acepta el certificado sin advertencia.
+
+
+
+3. ¿Por qué chmod 777 sería una mala práctica en este sitio?
+
+el 777 da permiso de leer, escribir y ejecutar a cualquier usuario del sistema y si alguno fuera vulnerado podría modificar
+o reemplazar los archivos del sitio o subir código malicioso ya con 755 solo el dueño (www-data) puede escribir y los demás solo leen,
+siguiendo el principio de mínimo privilegio.
+
+
+
+4. Reto: si el dominio fuera dulcehogar.com.sv público, ¿qué cambiarías? (nombre de herramienta, puerto, DNS)
+
+no usaria mkcert sino q certbot con Let's Encrypt pondría HTTPS en el puerto estándar 443 y el 80 para redirigir y valida, en el DNS
+crearía un registro A apuntando a la IP pública del servidor abriendo esos puertos en el firewall.
