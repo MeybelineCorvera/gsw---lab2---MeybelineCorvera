@@ -1,0 +1,46 @@
+Laboratorio 2 – EJERCICIO PRÁCTICO INDIVIDUAL
+Unidad 2 – Servidor Web de Libre Distribución
+Caso: “Dulce Hogar” – Repostería Artesanal
+
+
+FASE 1 Dimensionamiento
+
+
+1. Con 500 visitas/día y 5 peticiones por visita, ¿Cuál es el promedio de peticiones/segundo? Aplica
+un factor pico de 15 y calcula el pico real
+
+Peticiones al día son 500 visitas × 5 = 2,500 peticiones/día. Promedio es 2,500 ÷ 86,400 s ≈ 0.029 peticiones/segundo.
+Pico real (× 15) es 0.029 × 15 ≈ 0.43 peticiones/segundo. El tráfico no se reparte parejo en las 24 horas, sino que se 
+concentra en pocas horas. Por eso se aplica el factor pico al promedio
+
+
+
+2. ¿Los 2 vCPU y 4 GB de RAM alcanzan para el tráfico diario? ¿Y para el pico de 3,000 visitas?
+Justifica.
+
+Sí alcanzan para el tráfico diario por q 0.43 peticiones/s es una carga muy baja y con 3,000 visitas 15,000 peticiones/día 
+el pico sería de 2.6 peticiones/s Apache y Express lo manejan sin problema. En RAM caben el sistema (~500 MB), Apache y Express (~100 MB) con mucho margen.
+
+
+
+3. Si el sitio empieza a responder lento, ¿qué recurso revisarías primero: CPU, RAM, disco o red?
+Explica por qué.
+
+La RAM si se agota el sistema usa swap en disco y todo se vuelve lento, además Apache y Node pueden consumir más de lo esperado
+
+
+
+4. Decisión personal: para un negocio como “Dulce Hogar”, ¿recomiendas nube o servidor local?
+Menciona 3 criterios (costo, escalabilidad, mantenimiento).
+
+Creeria que nube un VPS pequeño. En costo se paga una cuota mensual baja sin comprar hardware. En escalabilidad se puede subir CPU o RAM 
+en fechas festivas y luego bajarla. En mantenimiento el proveedor se encarga del hardware la energía y la IP fija y la repostería no tiene personal de TI.
+
+
+
+5. Reto: si el sitio fuera solo HTML/CSS estático (sin Express), ¿bajaría la necesidad de CPU?
+Explica por qué.
+
+
+Sí porque sin Express no se ejecuta código ni un proceso Node por cada petición y que Apache solo lee archivos y los entrega también q el contenido estático 
+se cachea fácilmente en el navegador y en el servidor lo que reduce aún más el trabajo.
